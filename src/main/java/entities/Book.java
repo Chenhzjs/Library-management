@@ -160,4 +160,38 @@ public final class Book {
     public void setStock(int stock) {
         this.stock = stock;
     }
+    public void infoOutput() {
+        String bookIdString = String.valueOf(bookId);
+        String categoryString = category;
+        String titleString = title;
+        String pressString = press;
+        String publishYearString = String.valueOf(publishYear);
+        String authorString = author;
+        String priceString = String.valueOf(price);
+        String stockString = String.valueOf(stock);
+
+        int bookIdLine = (bookIdString.length() - 1) / 6 + 1;
+        int categoryLine = (categoryString.length() - 1) / 8 + 1;
+        int titleLine = (titleString.length() - 1) / 9 + 1;
+        int pressLine = (pressString.length() - 1) / 7 + 1;
+        int publishYearLine = (publishYearString.length() - 1) / 4 + 1;
+        int authorLine = (authorString.length() - 1) / 6 + 1;
+        int priceLine = (priceString.length() - 1) / 5 + 1;
+        int stockLine = (stockString.length() - 1) / 5 + 1;
+        int maxLine = Math.max(Math.max(Math.max(Math.max(Math.max(Math.max(bookIdLine, categoryLine), titleLine), pressLine), publishYearLine), authorLine), Math.max(priceLine, stockLine));
+        
+        String format = "| %6s | %8s | %9s | %7s | %4s | %6s | %5s | %5s |";
+        for (int i = 0; i < maxLine; i++) {
+            System.out.println(String.format(format,
+                    i * 6 < bookIdString.length() ? bookIdString.substring(i * 6, Math.min(bookIdString.length(), (i + 1) * 6)) : "",
+                    i * 8 < categoryString.length() ? categoryString.substring(i * 8, Math.min(categoryString.length(), (i + 1) * 8)) : "",
+                    i * 9 < titleString.length() ? titleString.substring(i * 9, Math.min(titleString.length(), (i + 1) * 9)) : "",
+                    i * 7 < pressString.length() ? pressString.substring(i * 7, Math.min(pressString.length(), (i + 1) * 7)) : "",
+                    i * 4 < publishYearString.length() ? publishYearString.substring(i * 4, Math.min(publishYearString.length(), (i + 1) * 4)) : "",
+                    i * 6 < authorString.length() ? authorString.substring(i * 6, Math.min(authorString.length(), (i + 1) * 6)) : "",
+                    i * 5 < priceString.length() ? priceString.substring(i * 5, Math.min(priceString.length(), (i + 1) * 5)) : "",
+                    i * 5 < stockString.length() ? stockString.substring(i * 5, Math.min(stockString.length(), (i + 1) * 5)) : "")
+            );
+        }
+    }
 }

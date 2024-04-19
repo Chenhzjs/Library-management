@@ -16,14 +16,13 @@ import utils.RandomData;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
+// import java.util.logging.Logger;
 public class LibraryTest {
 
     private DatabaseConnector connector;
     private LibraryManagementSystem library;
 
     private static ConnectConfig connectConfig = null;
-
     static {
         try {
             // parse connection config from "resources/application.yaml"
@@ -71,6 +70,8 @@ public class LibraryTest {
 
     @Test
     public void bookRegisterTest() {
+        // log.info("Start bookRegisterTest");
+        System.out.println("Start bookRegisterTest");
         Book b0 = new Book("Computer Science", "Database System Concepts",
                 "Machine Industry Press", 2023, "Mike", 188.88, 10);
         Assert.assertTrue(library.storeBook(b0).ok);
@@ -430,6 +431,7 @@ public class LibraryTest {
             queryConditions.add(c);
         }
         /* loop testing */
+        System.out.println("loop start");
         for (BookQueryConditions queryCondition : queryConditions) {
             ApiResult queryResult = library.queryBook(queryCondition);
             Assert.assertTrue(queryResult.ok);
@@ -621,6 +623,7 @@ public class LibraryTest {
         }
         /* check results */
         // only one thread can successfully borrow the book
+        System.out.println(BorrowThread.successOps.get());
         Assert.assertEquals(1, BorrowThread.successOps.get());
         /* release all connections */
         for (int i = 0; i < nThreads; i++) {

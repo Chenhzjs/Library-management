@@ -23,7 +23,7 @@ public enum DatabaseType {
     public String url(String host, String port, String db) {
         switch (this) {
             case SQLSERVER:
-                return String.format("jdbc:sqlserver://%s:%s;DatabaseName=%s;encrypt=false", host, port, db);
+                return String.format("jdbc:sqlserver://%s:%s;SelectMethod=cursor;DatabaseName=%s;encrypt=false", host, port, db);
             case MYSQL:
             case POSTGRES:
                 return String.format("jdbc:%s://%s:%s/%s", typeName, host, port, db);

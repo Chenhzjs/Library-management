@@ -9,7 +9,7 @@ public final class Card {
         Student("S"),
         Teacher("T");
 
-        private final String str;
+        public String str;
 
         CardType(String str) {
             this.str = str;
@@ -18,7 +18,9 @@ public final class Card {
         public String getStr() {
             return str;
         }
-
+        public void setStr(String str) {
+            this.str = str;
+        }
         public static CardType values(String s) {
             if ("S".equals(s)) {
                 return Student;
@@ -109,5 +111,29 @@ public final class Card {
 
     public void setType(CardType type) {
         this.type = type;
+    }
+    public void setTypeStr(String str) {
+        CardType type = CardType.values(str);
+        setType(type);
+    }
+    public void infoOutput() {
+        String cardIdStr = String.valueOf(this.getCardId());
+        String cardNameStr = this.getName();
+        String cardTypeStr = this.getType().toString();
+        String cardDepartmentStr = this.getDepartment();
+        int idLine = (cardIdStr.length() - 1) / 7 + 1;
+        int nameLine = (cardNameStr.length() - 1) / 9 + 1;
+        int typeLine = (cardTypeStr.length() - 1) / 9 + 1;
+        int departmentLine = (cardDepartmentStr.length() - 1) / 15 + 1;
+        int maxLine = Math.max(idLine, Math.max(nameLine, Math.max(typeLine, departmentLine)));
+        String format = "| %7s | %9s | %9s | %15s |";
+        for (int i = 0; i < maxLine; i++) {
+            System.out.println(String.format(format,
+                    i * 7 < Math.min((i + 1) * 7, cardIdStr.length()) ? cardIdStr.substring(i * 7, Math.min((i + 1) * 7, cardIdStr.length())) : "",
+                    i * 9 < Math.min((i + 1) * 9, cardNameStr.length()) ? cardNameStr.substring(i * 9, Math.min((i + 1) * 9, cardNameStr.length())) : "",
+                    i * 9 < Math.min((i + 1) * 9, cardTypeStr.length()) ? cardTypeStr.substring(i * 9, Math.min((i + 1) * 9, cardTypeStr.length())) : "",
+                    i * 15 < Math.min((i + 1) * 15, cardDepartmentStr.length()) ? cardDepartmentStr.substring(i * 15, Math.min((i + 1) * 15, cardDepartmentStr.length())) : ""
+            ));
+        }
     }
 }
